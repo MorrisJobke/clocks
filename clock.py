@@ -1,8 +1,10 @@
 __author__ = 'mjob'
 
 import math, cv2, glob
+from multiprocessing import Pool
 
 def drawClock(name):
+    print('draw %s' % (name))
     img = cv2.imread(name)
     overlay = img.copy()
     date = name.rsplit('.', 1)[0]
@@ -58,7 +60,7 @@ total = len(filesToProcess)
 i = 1
 
 print("%i file(s) to process" % total)
-for file in filesToProcess:
-    print('%i/%i draw %s' % (i, total, file))
-    drawClock(file)
-    i += 1
+
+
+pool = Pool(processes=7)
+pool.map(drawClock, filesToProcess)
