@@ -47,20 +47,24 @@ def drawClock(name):
 
     cv2.imwrite(date + '-clock.jpg', img)
 
-files = glob.glob('*.jpg')
+def main():
+    files = glob.glob('*.jpg')
 
-filesToProcess = []
+    filesToProcess = []
 
-for file in files:
-    if '-clock.jpg' not in file and file.replace('.jpg', '-clock.jpg') not in files:
-        #print("\tappend " + file)
-        filesToProcess.append(file)
+    for file in files:
+        if '-clock.jpg' not in file and file.replace('.jpg', '-clock.jpg') not in files:
+            #print("\tappend " + file)
+            filesToProcess.append(file)
 
-total = len(filesToProcess)
-i = 1
+    total = len(filesToProcess)
+    i = 1
 
-print("%i file(s) to process" % total)
+    print("%i file(s) to process" % total)
 
 
-pool = Pool(processes=7)
-pool.map(drawClock, filesToProcess)
+    pool = Pool(processes=7)
+    pool.map(drawClock, filesToProcess)
+
+if __name__ == '__main__':
+    main()
